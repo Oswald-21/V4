@@ -104,10 +104,10 @@ const productos = [
     nombre: "Leche entera",
     marca: "Asturiana",
     categoria: "entera",
-    ean: "8410297010200",
+    ean: "8410297112041",
     confianza: "alta",
     descripcion: "Leche entera Central Lechera Asturiana en formato carton.",
-    url_imagen: ""
+    url_imagen: "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202306/20/00120912100037____16__1200x1200.jpg"
   },
   {
     id: "asturiana-semi-carton",
@@ -117,7 +117,7 @@ const productos = [
     ean: "8410297012150",
     confianza: "alta",
     descripcion: "Leche semidesnatada Asturiana con equilibrio entre sabor y ligereza.",
-    url_imagen: ""
+    url_imagen: "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202306/20/00120912200035____16__1200x1200.jpg"
   },
   {
     id: "asturiana-desnatada-carton",
@@ -127,37 +127,37 @@ const productos = [
     ean: "8410297012105",
     confianza: "alta",
     descripcion: "Leche desnatada Asturiana en envase rosa.",
-    url_imagen: ""
+    url_imagen: "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202306/20/00120912300041____16__1200x1200.jpg"
   },
   {
     id: "president-entera",
     nombre: "Leche entera",
     marca: "President",
     categoria: "entera",
-    ean: "8410283127318",
+    ean: "8410285127613",
     confianza: "media",
     descripcion: "Leche entera President con compromiso sostenible.",
-    url_imagen: ""
+    url_imagen: "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202501/20/00120616500169____1__1200x1200.jpg"
   },
   {
     id: "president-semi",
     nombre: "Leche semidesnatada",
     marca: "President",
     categoria: "semidesnatada",
-    ean: "8410283134903",
+    ean: "8410285114903",
     confianza: "alta",
     descripcion: "Leche semidesnatada President en envase azul.",
-    url_imagen: ""
+    url_imagen: "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202205/03/00120912200142____14__1200x1200.jpg"
   },
   {
     id: "president-desnatada",
     nombre: "Leche desnatada",
     marca: "President",
     categoria: "desnatada",
-    ean: "8410283172493",
+    ean: "8410285114897",
     confianza: "media",
     descripcion: "Leche desnatada President con menor grasa.",
-    url_imagen: ""
+    url_imagen: "https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202205/03/00120912300116____14__1200x1200.jpg"
   },
   {
     id: "lauki-entera-80",
