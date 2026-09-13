@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo estático de leches con filtros, búsqueda y códigos EAN-13 generados en SVG.">
+  <title>Catálogo de Leches y EAN-13</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b5cad'/%3E%3Cpath d='M22 11h20l3 9v33a5 5 0 0 1-5 5H24a5 5 0 0 1-5-5V20l3-9Z' fill='%23fff'/%3E%3Cpath d='M22 20h20' stroke='%239bdcff' stroke-width='5'/%3E%3Cpath d='M27 34h2v16h-2zm5 0h4v16h-4zm7 0h2v16h-2z' fill='%230b5cad'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-shell">
+    <section class="hero">
+      <div class="hero-title">
+        <p class="eyebrow">Catálogo estático</p>
+        <h1>Leches y códigos EAN-13</h1>
+        <p class="hero-copy">Productos organizados por categoría y marca, con códigos renderizados en SVG para mantenerlos nítidos en móvil, escritorio o impresión.</p>
+      </div>
+
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.4 0-.8-.1-1.2A7 7 0 0 1 12 3Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4Zm0-5.3a1 1 0 0 1 1 1v1.3a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 17.7a1 1 0 0 1 1 1V22a1 1 0 1 1-2 0v-1.3a1 1 0 0 1 1-1ZM2 12a1 1 0 0 1 1-1h1.3a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm17.7 0a1 1 0 0 1 1-1H22a1 1 0 1 1 0 2h-1.3a1 1 0 0 1-1-1ZM4.9 4.9a1 1 0 0 1 1.4 0l.9.9a1 1 0 1 1-1.4 1.4l-.9-.9a1 1 0 0 1 0-1.4Zm11.9 11.9a1 1 0 0 1 1.4 0l.9.9a1 1 0 0 1-1.4 1.4l-.9-.9a1 1 0 0 1 0-1.4ZM19.1 4.9a1 1 0 0 1 0 1.4l-.9.9a1 1 0 0 1-1.4-1.4l.9-.9a1 1 0 0 1 1.4 0ZM7.2 16.8a1 1 0 0 1 0 1.4l-.9.9a1 1 0 0 1-1.4-1.4l.9-.9a1 1 0 0 1 1.4 0Z"/></svg>
+      </button>
+
+      <div class="summary" aria-label="Resumen del catálogo">
+        <article>
+          <strong id="total-count">0</strong>
+          <span>productos</span>
+        </article>
+        <article>
+          <strong id="valid-count">0</strong>
+          <span>EAN SVG</span>
+        </article>
+        <article>
+          <strong id="review-count">0</strong>
+          <span>por revisar</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Filtros del catálogo">
+      <label class="search-box">
+        <span>Buscar</span>
+        <input id="search-input" type="search" placeholder="Marca, nombre o EAN..." autocomplete="off">
+      </label>
+
+      <nav id="category-tabs" class="tabs" aria-label="Categorías"></nav>
+      <div id="brand-filter" class="brand-filter" aria-label="Filtro por marca"></div>
+    </section>
+  </header>
+
+  <main class="content">
+    <section class="quick-tool" aria-label="Generador temporal EAN-13">
+      <button id="open-generator" class="tool-trigger" type="button" aria-expanded="false" aria-controls="generator-panel">
+        Generar un código EAN-13
+      </button>
+
+      <div id="generator-panel" class="generator-panel" hidden>
+        <form id="ean-form" class="ean-form" novalidate>
+          <label for="ean-input">Introduce los 13 dígitos</label>
+          <div class="ean-form-row">
+            <input id="ean-input" type="text" pattern="[0-9]{13}" maxlength="13" placeholder="8410128010096" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-describedby="ean-count ean-message">
+            <button type="submit">Generar SVG</button>
+          </div>
+          <span id="ean-count" class="ean-count">0/13 dígitos</span>
+          <p id="ean-message" class="ean-message" aria-live="polite"></p>
+        </form>
+        <div id="temporary-product" class="temporary-product" hidden></div>
+      </div>
+    </section>
+
+    <section id="catalog-grid" class="catalog-grid" aria-live="polite"></section>
+  </main>
+
+  <template id="product-template">
+    <article class="product-card">
+      <div class="product-mark" aria-hidden="true">
+        <span class="mark-brand"></span>
+        <span class="mark-kind"></span>
+      </div>
+
+      <div class="product-body">
+        <div class="product-image-box"></div>
+
+        <div class="product-details">
+          <div class="product-meta">
+            <span class="badge"></span>
+            <h2></h2>
+            <p></p>
+          </div>
+
+          <div class="barcode-panel"></div>
+
+          <footer class="card-actions">
+            <code></code>
+            <button type="button" class="copy-btn">Copiar EAN</button>
+          </footer>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <dialog id="barcode-dialog" class="barcode-dialog" aria-label="Código EAN-13 ampliado">
+    <form method="dialog" class="dialog-header">
+      <button type="submit" class="dialog-close" aria-label="Cerrar código ampliado">Cerrar</button>
+    </form>
+    <div id="expanded-barcode" class="expanded-barcode"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
